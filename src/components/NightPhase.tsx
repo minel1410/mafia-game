@@ -62,13 +62,19 @@ export default function NightPhase() {
   const handleAction = () => {
     if (myRole === 'witch') {
       if (!witchChoice) return;
-      witchAction(witchChoice, witchChoice !== 'none' && witchChoice !== 'protect' ? selectedTarget : undefined);
+  
+      const target =
+        witchChoice !== 'none' && witchChoice !== 'protect'
+          ? (selectedTarget ?? undefined)
+          : undefined;
+  
+      witchAction(witchChoice, target);
       setActionDone(true);
       return;
     }
-
+  
     if (!selectedTarget) return;
-
+  
     if (isMafia) {
       mafiaVote(selectedTarget);
     } else if (myRole === 'doctor') {
@@ -78,9 +84,10 @@ export default function NightPhase() {
     } else if (myRole === 'escort' && !session.escortBecameMafia) {
       escortMute(selectedTarget);
     }
-
+  
     setActionDone(true);
   };
+  
 
   const handleSkip = () => {
     skipNightAction();
