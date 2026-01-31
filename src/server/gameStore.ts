@@ -479,7 +479,7 @@ export function resolveVoting(sessionId: string): { session: GameSession; elimin
   checkWinConditions(session);
 
   // If game didn't end, start next night
-  if (session.phase !== 'ended') {
+  if ((session.phase as string) !== 'ended') {
     session.players.forEach(p => p.isMuted = false);
     session.nightActions = {
       mafiaVotes: {},
